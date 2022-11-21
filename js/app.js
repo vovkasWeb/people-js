@@ -44,6 +44,7 @@ const users = [
 ];
 const thead = document.querySelector("thead");
 const tbody = document.querySelector("tbody");
+ const totalBalans = document.querySelector('.total-balans');
 var id = 1;
 // functionSort(users, "age", "asc");
 withdrawHtml(users, map);
@@ -56,9 +57,12 @@ function withdrawHtml(arr, map) {
     map.length == 0
   )
     return;
+
   const newArr = newArrayObj(arr, map);
   const fragment = document.createDocumentFragment();
   const fragmentStr = document.createDocumentFragment();
+  totalBalans.textContent+=totalBalance(arr);
+
   fragmentStr.appendChild(createTrCol(map));
 
   newArr.forEach((element) => {
@@ -80,9 +84,14 @@ function createTrCol(arr) {
     th.setAttribute("scope", "cop");
     tr.appendChild(th);
   }
-  console.log(tr);
   return tr;
 }
+function totalBalance(arr) {
+	return arr.reduce(function(sum, current) {
+		return sum + current.balance;
+	 }, 0);
+}
+
 function createTr(element) {
   const tr = document.createElement("tr");
   const idTh = document.createElement("th");
@@ -95,7 +104,7 @@ function createTr(element) {
     tr.appendChild(th);
   }
   id++;
-  console.log(tr);
+
   return tr;
 }
 

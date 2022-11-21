@@ -1,0 +1,9 @@
+/** @format */
+
+.total-balans {
+  font-weight: bold;
+  font-size: 24px;
+  justify-content: flex-end;
+  padding: 10px 15% 10px;
+  display: flex;
+}
