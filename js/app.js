@@ -42,40 +42,60 @@ const users = [
     nestedField: { total: 200 },
   },
 ];
+const thead = document.querySelector("thead");
 const tbody = document.querySelector("tbody");
 var id = 1;
 // functionSort(users, "age", "asc");
-withdrawHtml(users,map);
+withdrawHtml(users, map);
 
-function withdrawHtml(arr,map) {
-	if (!Array.isArray(arr) || arr.length == 0 || !Array.isArray(map) || map.length == 0) return;
+function withdrawHtml(arr, map) {
+  if (
+    !Array.isArray(arr) ||
+    arr.length == 0 ||
+    !Array.isArray(map) ||
+    map.length == 0
+  )
+    return;
   const newArr = newArrayObj(arr, map);
   const fragment = document.createDocumentFragment();
   const fragmentStr = document.createDocumentFragment();
-
+  fragmentStr.appendChild(createTrCol(map));
 
   newArr.forEach((element) => {
-	fragmentStr.appendChild(createTr(element));
+    fragmentStr.appendChild(createTr(element));
   });
   tbody.appendChild(fragmentStr);
-  return ;
+  return;
 }
-function createTrCol(element) {
+function createTrCol(arr) {
+  const tr = document.createElement("tr");
+  const idTh = document.createElement("th");
+  idTh.textContent = "#";
+  idTh.setAttribute("scope", "cop");
+  tr.appendChild(idTh);
 
+  for (let i = 1; i < arr.length; i++) {
+    const th = document.createElement("th");
+    th.textContent = arr[i];
+    th.setAttribute("scope", "cop");
+    tr.appendChild(th);
+  }
+  console.log(tr);
+  return tr;
 }
 function createTr(element) {
   const tr = document.createElement("tr");
   const idTh = document.createElement("th");
-  idTh.textContent= id;
+  idTh.textContent = id;
   tr.appendChild(idTh);
   for (var key in element) {
     if (key === "_id") continue;
     const th = document.createElement("th");
     th.textContent = element[key];
-	 tr.appendChild(th);
+    tr.appendChild(th);
   }
   id++;
-console.log(tr);
+  console.log(tr);
   return tr;
 }
 
